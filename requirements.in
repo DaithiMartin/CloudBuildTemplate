@@ -1,0 +1,5 @@
+# Used to handle the HTTP trigger framework for Cloud Functions
+functions-framework==3.*
+
+# The core ML framework
+torch

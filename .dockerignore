@@ -1,0 +1,22 @@
+# Git and IDE files
+.git
+.gitignore
+.vscode/
+*.code-workspace
+
+# Docker files
+.dockerignore
+Dockerfile
+
+# Python virtual environment and cache
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Local config and secrets
+.env
+local_settings.py
+
+# Testing artifacts
+.pytest_cache/
