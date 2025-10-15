@@ -1,27 +1,39 @@
-# This file instructs Cloud Build on the steps to take.
+# cloudbuild.yaml
 steps:
-  # Use the official gcloud command-line tool image.
+# --- STEP 0: DEBUGGING ---
+# This step prints variables and the file contents to the log.
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    echo "--- Verifying build configuration ---"
+    echo "Project ID used by build: ${PROJECT_ID}"
+    echo "Runtime SA for deploy step: function-runner@${PROJECT_ID}.iam.gserviceaccount.com"
+    echo "--- Contents of cloudbuild.yaml at runtime ---"
+    cat cloudbuild.yaml
+    echo "-------------------------------------------"
+
+# --- STEP 1: DEPLOYMENT ---
+# This is your original deployment step.
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args:
     - 'functions'
     - 'deploy'
-    - 'hello-world-function'   # The name for your deployed function
+    - 'hello-world-function'
+    - '--gen2'
+    - '--runtime=python311'
+    - '--region=us-central1'
+    - '--source=.'
+    - '--entry-point=hello_http'
+    - '--trigger-http'
+    - '--allow-unauthenticated'
     - '--service-account=function-runner@${PROJECT_ID}.iam.gserviceaccount.com'
-    - '--gen2'                 # Use the 2nd generation environment
-    - '--runtime=python311'    # Specify the Python version
-    - '--region=us-central1'   # Choose a region for your function
-    - '--source=.'             # Deploy code from the current directory
-    - '--entry-point=hello_http' # The name of the Python function to run
-    - '--trigger-http'         # Make this function invokable via HTTP
-    - '--allow-unauthenticated'# Allow public access to the function's URL
-
-  # Add this block to the end of your file
 
 # Specify the service account for the build itself
-serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/cloud-build-deployer@${PROJECT_ID}.iam.gserviceaccount.com'
+serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/your-build-service-account@${PROJECT_ID}.iam.gserviceaccount.com'
 
+# Tell Cloud Build where to send the logs
 options:
   logging: CLOUD_LOGGING_ONLY
-# Note: For simplicity, this uses the default Cloud Build service account.
-# It has the necessary permissions in a new project to deploy a simple function.
