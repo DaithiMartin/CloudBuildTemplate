@@ -14,6 +14,8 @@ steps:
     - '--entry-point=hello_http' # The name of the Python function to run
     - '--trigger-http'         # Make this function invokable via HTTP
     - '--allow-unauthenticated'# Allow public access to the function's URL
-
+  # Add this block to the end of your file
+  options:
+    logging: CLOUD_LOGGING_ONLY
 # Note: For simplicity, this uses the default Cloud Build service account.
 # It has the necessary permissions in a new project to deploy a simple function.
