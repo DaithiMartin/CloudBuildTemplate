@@ -1,1 +1,1 @@
-added new permission
+added new permissions
