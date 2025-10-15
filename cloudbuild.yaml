@@ -7,6 +7,7 @@ steps:
     - 'functions'
     - 'deploy'
     - 'hello-world-function'   # The name for your deployed function
+    - '--service-account=function-runner@${PROJECT_ID}.iam.gserviceaccount.com'
     - '--gen2'                 # Use the 2nd generation environment
     - '--runtime=python311'    # Specify the Python version
     - '--region=us-central1'   # Choose a region for your function
@@ -14,7 +15,6 @@ steps:
     - '--entry-point=hello_http' # The name of the Python function to run
     - '--trigger-http'         # Make this function invokable via HTTP
     - '--allow-unauthenticated'# Allow public access to the function's URL
-    - '--service-account=function-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 
   # Add this block to the end of your file
 
