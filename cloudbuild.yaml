@@ -32,7 +32,7 @@ steps:
     - '--service-account=function-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 
 # Specify the service account for the build itself
-serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/your-build-service-account@${PROJECT_ID}.iam.gserviceaccount.com'
+serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/cloud-build-deployer@${PROJECT_ID}.iam.gserviceaccount.com'
 
 # Tell Cloud Build where to send the logs
 options:
