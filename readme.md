@@ -1,1 +1,1 @@
-Testing trigger
+added new permissions 
