@@ -17,6 +17,10 @@ steps:
     - '--service-account=function-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 
   # Add this block to the end of your file
+
+# Specify the service account for the build itself
+serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/cloud-build-deployer@${PROJECT_ID}.iam.gserviceaccount.com'
+
 options:
   logging: CLOUD_LOGGING_ONLY
 # Note: For simplicity, this uses the default Cloud Build service account.
