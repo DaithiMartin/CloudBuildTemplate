@@ -1,0 +1,19 @@
+# This file instructs Cloud Build on the steps to take.
+steps:
+  # Use the official gcloud command-line tool image.
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - 'functions'
+    - 'deploy'
+    - 'hello-world-function'   # The name for your deployed function
+    - '--gen2'                 # Use the 2nd generation environment
+    - '--runtime=python311'    # Specify the Python version
+    - '--region=us-central1'   # Choose a region for your function
+    - '--source=.'             # Deploy code from the current directory
+    - '--entry-point=hello_http' # The name of the Python function to run
+    - '--trigger-http'         # Make this function invokable via HTTP
+    - '--allow-unauthenticated'# Allow public access to the function's URL
+
+# Note: For simplicity, this uses the default Cloud Build service account.
+# It has the necessary permissions in a new project to deploy a simple function.
